@@ -1,11 +1,15 @@
 <?php
 
+if (!file_exists('vendor/autoload.php')) {
+    exit("请先使用'composer install'安装所需要的依赖");
+}
+
 require 'vendor/autoload.php';      //加载composer自动加载文件
 
 use QL\QueryList;
 
 $html = "";
-$filepath = 'bookmark.html';        //用于存放cnblogs 的标签页面html源代码的一个文件
+$filepath = sys_get_temp_dir() . '/bookmark.html';        //用于存放cnblogs 的标签页面html源代码的一个文件
 $ql = QueryList::getInstance();
 
 if (file_exists($filepath)) {
