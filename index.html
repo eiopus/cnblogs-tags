@@ -49,7 +49,7 @@
         <div class="container-fluid">
           <div class="container-fluid">
             <ul class="nav nav-pills nav-stacked">
-              {% for category,item in info %}
+              {% for category,item in result %}
                 <li {% if loop.first %}class="active"{% endif %}>
                   <a href="#{{category}}">{{category}}</a>
                 </li>
@@ -59,7 +59,7 @@
         </div>
       </nav>
       <div class="col-sm-9">
-        {% for category,item in info %}
+        {% for category,item in result %}
           <div id="{{category}}">
             <h1>{{category}}</h1>
 
