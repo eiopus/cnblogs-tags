@@ -67,7 +67,7 @@ foreach ($data as $tag => $link) {
  */
 $loader = new Twig_Loader_Filesystem(__DIR__);
 $twig = new Twig_Environment($loader, [
-    'cache' => __DIR__ . '/twig_cache/',
+    'cache' => sys_get_temp_dir() . '/twig_cache/',
 ]);
 
 echo $twig->render('index.html', ['result' => $result]);
