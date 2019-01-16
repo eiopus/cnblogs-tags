@@ -7,10 +7,12 @@
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
   <title>Cnblogs Tags</title>
   <style>
-    div {
-      margin: 0 auto;
-      max-width: 800px;
-      padding-bottom: 50px;
+    body {
+      position: relative;
+    }
+    ul.nav-pills {
+      top: 20px;
+      position: fixed;
     }
     h3 {
       padding-left: 40px;
@@ -40,40 +42,48 @@
   <!-- Bootstrap 核心 CSS 文件 -->
   <link href="/bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <div>
-    <!-- 左侧tab -->
-    <div id="list-example" class="list-group">
-      {% for category,item in info %}
-        <a class="list-group-item list-group-item-action" href="#list-item-{{category}}">
-          {{category}}<span class="badge">{{item['num']}}</span>
-        </a>
-      {% endfor %}
-    </div>
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+  <div class="container">
+    <div class="row">
+      <nav class="col-sm-3" id="myScrollspy">
+        <div class="container-fluid">
+          <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+              {% for category,item in info %}
+                <li {% if loop.first %}class="active"{% endif %}>
+                  <a href="#{{category}}">{{category}}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="col-sm-9">
+        {% for category,item in info %}
+          <div id="{{category}}">
+            <h1>{{category}}</h1>
 
-    <!-- 具体内容 -->
-    <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
-      {% for category,item in info %}
-        <h4 id="list-item-{{category}}">{{category}}</h4>
-        {% for subCategory,tags in item['list'] %}
-          <h6>{{subCategory}}</h6>
-          <ul>
-            {% for tag,val in tags %}
-              <li>
-                <a href="{{val['link']}}" target="_blank">
-                  {{tag}}<span class="badge">{{val['num']}}</span>
-                </a>
-              </li>
+            {% for subCategory,tags in item['list'] %}
+              <h6>{{subCategory}}</h6>
+              <ul>
+                {% for tag,val in tags %}
+                  <li>
+                    <a href="{{val['link']}}" target="_blank">
+                      {{tag}}<span class="badge">{{val['num']}}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
             {% endfor %}
-          </ul>
-          {% endfor}
-      {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
     </div>
-
-
-    <br><br><br><br><br><br><br>
-    <a href="update.php" class="text-center" target="_self"> >>>>> 更新 <<<<< </a>
   </div>
+
+
+  <br><br><br><br><br><br><br>
+  <a href="update.php" class="text-center" target="_self"> >>>>> 更新 <<<<< </a>
 
 
   <!-- Bootstrap 核心 JavaScript 文件 -->

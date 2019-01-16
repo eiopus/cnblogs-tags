@@ -29,7 +29,7 @@ $data = array_combine($all, $links);
 ksort($data, SORT_NATURAL);
 
 // 按照类别来分组
-$info = [];
+$result = [];
 foreach ($data as $tag => $link) {
     $posLeftBrackets = stripos($tag, '(');
 
@@ -40,20 +40,23 @@ foreach ($data as $tag => $link) {
     if (stripos($tag, '_') !== false) {
         // a_b_c(10)
         $category = substr($tag, 0, strpos($tag, '_'));
-        $subCategory = substr($tag, 0, stripos($tag, '_'));
+        $subCategory = substr($tag, 0, strripos($tag, '_'));
     } else {
         // a(10)
         $subCategory = $category = substr($tag, 0, $posLeftBrackets);
     }
 
+    $tag = substr($tag, 0, $posLeftBrackets);
 
+    $list = $result[$category]['list'];
     $list[$subCategory][$tag] = [
         'link' => $link,
         'num' => $num,
     ];
-    $info[$category] = [
+
+    $result[$category] = [
         'list' => $list,
-        'num' => $num,
+        'num' => $result[$category]['num'] + $num,
     ];
 }
 
@@ -67,32 +70,4 @@ $twig = new Twig_Environment($loader, [
     'cache' => __DIR__ . '/twig_cache/',
 ]);
 
-echo $twig->render('index.html', ['info' => $info]);
-
-
-
-
-
-
-
-
-
-// $str = '';
-// $i = 1;
-//
-// foreach ($result as $category => $all) {
-//     // 大类别
-//     $str .= '<br><h3>' . $category . '</h3>';
-//
-//     // 子类别
-//     $str .= '<ul>';
-//     foreach ($all as $k => $v) {
-//         $str .=
-//             '<li>
-//               <a target="_blank" href="' . $v . '">' . $k . '</a>
-//             </li>';
-//     }
-//     $str .= '</ul>';
-// }
-//
-// echo str_replace("{str}", $str, file_get_contents("index.html"));
+echo $twig->render('index.html', ['result' => $result]);
