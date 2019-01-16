@@ -10,37 +10,41 @@
     body {
       position: relative;
     }
-    ul.nav-pills {
+    #myScrollspy {
       top: 20px;
       position: fixed;
     }
-    h3 {
+    ul.nav-pills {
+      overflow-y: scroll;
+    }
+    .col-sm-9 h3 {
       padding-left: 40px;
     }
-    ul {
+    .col-sm-9 ul {
       list-style: none;
       display: block;
       width: 100%;
     }
-    ul:after {
+    .col-sm-9 ul:after {
       content: ".";
       clear: both;
       height: 0;
       visibility: hidden;
       display: block;
     }
-    li {
+    .col-sm-9 li {
       float: left;
       margin-right: 30px;
       line-height: 25px;
     }
-    a {
+    .col-sm-9 a {
       display: block;
     }
   </style>
 
-  <!-- Bootstrap 核心 CSS 文件 -->
-  <link href="/bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
   <div class="container">
@@ -64,12 +68,12 @@
             <h1>{{category}}</h1>
 
             {% for subCategory,tags in item['list'] %}
-              <h6>{{subCategory}}</h6>
+              <h3>{{subCategory}}</h3>
               <ul>
                 {% for tag,val in tags %}
                   <li>
                     <a href="{{val['link']}}" target="_blank">
-                      {{tag}}<span class="badge">{{val['num']}}</span>
+                      {{tag}} <span class="badge">{{val['num']}}</span>
                     </a>
                   </li>
                 {% endfor %}
@@ -84,9 +88,5 @@
 
   <br><br><br><br><br><br><br>
   <a href="update.php" class="text-center" target="_self"> >>>>> 更新 <<<<< </a>
-
-
-  <!-- Bootstrap 核心 JavaScript 文件 -->
-  <script src="/bootstrap-4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
