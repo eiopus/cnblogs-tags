@@ -42,9 +42,37 @@
 </head>
 <body>
   <div>
-    {str}
+    <!-- 左侧tab -->
+    <div id="list-example" class="list-group">
+      {% for category,item in info %}
+        <a class="list-group-item list-group-item-action" href="#list-item-{{category}}">
+          {{category}}<span class="badge">{{item['num']}}</span>
+        </a>
+      {% endfor %}
+    </div>
+
+    <!-- 具体内容 -->
+    <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+      {% for category,item in info %}
+        <h4 id="list-item-{{category}}">{{category}}</h4>
+        {% for subCategory,tags in item['list'] %}
+          <h6>{{subCategory}}</h6>
+          <ul>
+            {% for tag,val in tags %}
+              <li>
+                <a href="{{val['link']}}" target="_blank">
+                  {{tag}}<span class="badge">{{val['num']}}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+          {% endfor}
+      {% endfor %}
+    </div>
+
+
     <br><br><br><br><br><br><br>
-    <a href="update.html" class="text-center" target="_self"> >>>>> 更新 <<<<< </a>
+    <a href="update.php" class="text-center" target="_self"> >>>>> 更新 <<<<< </a>
   </div>
 
 
