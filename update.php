@@ -16,7 +16,7 @@ if ('post' == strtolower($_SERVER['REQUEST_METHOD'])) {
     }
 
     $file = new SplFileInfo($_FILES['tags']['tmp_name']);
-    if (!$file->isFile() || $file->getExtension() != 'html') {
+    if (!$file->isFile()) {
         echo '无效提交';
         exit();
     }
@@ -27,6 +27,7 @@ if ('post' == strtolower($_SERVER['REQUEST_METHOD'])) {
     file_put_contents(sys_get_temp_dir() . '/bookmark.html', $content);
 
     header("location:index.php");
+    exit();
 }
 
 $randomToken = uniqid();
